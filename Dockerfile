@@ -1,4 +1,4 @@
-FROM node:24-slim
+FROM nvidia/cuda:13.1.0-runtime-ubuntu22.04
 
 # Build-time configuration
 ARG VARIANT=linux-x64-cuda-13.1.0
@@ -11,11 +11,12 @@ ENV GS_HOST=0.0.0.0
 ENV GS_THREADS=4
 ENV GS_PROCESSORS=1
 
-# Install system dependencies required by whisper.cpp binaries
+# Install Node.js 24 + system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
-    libgomp1 \
+    && curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Install ghost-story globally
@@ -29,10 +30,4 @@ RUN ghost-story install model ${MODEL}
 EXPOSE ${GS_PORT}
 
 # Start the whisper server using environment variables
-CMD ghost-story server \
-    --model ${GS_MODEL} \
-    --port ${GS_PORT} \
-    --host ${GS_HOST} \
-    --threads ${GS_THREADS} \
-    --processors ${GS_PROCESSORS} \
-    --no-auto-install
+CMD ["sh", "-c", "ghost-story server --model ${GS_MODEL} --port ${GS_PORT} --host ${GS_HOST} --threads ${GS_THREADS} --processors ${GS_PROCESSORS} --no-auto-install"]
