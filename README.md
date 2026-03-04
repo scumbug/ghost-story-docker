@@ -23,15 +23,15 @@ The variant and model are baked into the image at build time. Edit `docker-compo
 
 ```yaml
 args:
-  VARIANT: windows-x64-cuda-13.1.0  # whisper.cpp binary variant
-  MODEL: tiny                         # Whisper model to use
+  VARIANT: linux-x64-cuda-13.1.0  # whisper.cpp binary variant
+  MODEL: tiny                       # Whisper model to use
 ```
 
 Or pass them directly via CLI:
 
 ```bash
 docker compose build \
-  --build-arg VARIANT=linux-x64-cuda-12.9.0 \
+  --build-arg VARIANT=linux-x64-cuda-13.1.0 \
   --build-arg MODEL=large-v3-turbo
 ```
 
