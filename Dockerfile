@@ -15,6 +15,7 @@ ENV GS_PROCESSORS=1
 RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install ghost-story globally
