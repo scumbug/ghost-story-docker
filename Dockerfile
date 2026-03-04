@@ -1,7 +1,7 @@
 FROM node:24-slim
 
 # Build-time configuration
-ARG VARIANT=windows-x64-cuda-13.1.0
+ARG VARIANT=linux-x64-cuda-13.1.0
 ARG MODEL=tiny
 
 # Runtime defaults (can be overridden via environment variables)
